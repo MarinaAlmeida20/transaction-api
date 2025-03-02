@@ -21,6 +21,15 @@ public class StatisticService {
         List<TransactionRequestDTO> transactionRequestDTOList =
                 transactionService.findTransactions(intervalSearch);
 
+        if(transactionRequestDTOList.isEmpty()){
+            return new StatisticResponseDTO(
+                    0L,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0);
+        }
+
         DoubleSummaryStatistics statisticsTransactions =
                 transactionRequestDTOList.stream()
                         .mapToDouble(TransactionRequestDTO::value)
