@@ -18,7 +18,7 @@ public class TransactionService {
 
     public void addTransactions(TransactionRequestDTO dto){
 
-        log.info("Iniciado o processament de gravar transacoes");
+        log.info("Iniciado o processament de gravar transacoes " + dto);
 
         if(dto.dateHour().isAfter(OffsetDateTime.now())){
             log.error("Data e hora maiores que a data atual");
@@ -32,11 +32,14 @@ public class TransactionService {
 
         // Armazena a transaction in memory
         transactionRequestDTOList.add(dto);
+        log.info("Transacoes adicionadas com sucesso");
     }
 
     // limpar transactions
     public void clearTransactions(){
+        log.info("Iniciado processamento para deletar transacoes");
         transactionRequestDTOList.clear();
+        log.info("Transacoes deletadas com sucesso");
     }
 
     public List<TransactionRequestDTO> findTransactions(Integer intervalSearch){
@@ -44,6 +47,7 @@ public class TransactionService {
         /*
         * Get all the transactions made 60 seconds before actual time
         */
+        log.info("Iniciadas buscas de transacoes por tempo " + intervalSearch);
         OffsetDateTime dateTimeInterval =
                 OffsetDateTime.now().minusSeconds(intervalSearch);
 
@@ -53,6 +57,7 @@ public class TransactionService {
         * if date and hour is after the date and hour now (60 seconds ago)
         * add to list
         */
+        log.info("Retorno de transacoes com sucesso");
         return transactionRequestDTOList.stream()
                 .filter(transaction -> transaction.dateHour()
                         .isAfter(dateTimeInterval))
