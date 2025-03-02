@@ -39,7 +39,7 @@ public class TransactionService {
         transactionRequestDTOList.clear();
     }
 
-    public List<TransactionRequestDTO> getTransactions(Integer intervalSearch){
+    public List<TransactionRequestDTO> findTransactions(Integer intervalSearch){
 
         /*
         * Get all the transactions made 60 seconds before actual time
